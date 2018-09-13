@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Login extends Component {
   render() {
     return (
       <div>
         Este es el log in
+        <Link to="/timeline">
+          <button>Go to timeline</button>
+        </Link>
+        <Link to="/register">
+          <button>Go to register</button>
+        </Link>
       </div>
     );
   }
