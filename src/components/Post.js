@@ -25,9 +25,8 @@ const Post = props => (
             )
           }
           <div className="TimelineLikes">
-            {console.log(props.postLiked.includes(post.id), props.postLiked, post.id)}
             {props.postLiked.includes(post.id) ?
-              <Fragment><img src="like-active.svg" className="TimelineIcon" alt="liked" /><p>{post.likes}</p></Fragment> :
+              <Fragment><img src="like-active.svg" className="TimelineIconActive" alt="liked" /><p>{post.likes}</p></Fragment> :
               <Fragment><a onClick={() => props.addLike(post.id, post.likes)}><img src="like.svg" className="TimelineIcon" alt="like" /></a><p>{post.likes}</p></Fragment>
             }
           </div>

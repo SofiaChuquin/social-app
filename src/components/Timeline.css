@@ -60,10 +60,17 @@
   align-items: center;
 }
 
+.TimelineIconActive {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+}
+
 .TimelineIcon {
   width: 24px;
   height: 24px;
   margin-right: 5px;
+  cursor: pointer;
 }
 
 .TimelineLikes {
