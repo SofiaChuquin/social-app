@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '../actions';
 import LoginForm from '../components/Login';
-import '../components/Login.css';
+import '../components/Session.css';
 
 class Login extends Component {
   static propTypes = {
@@ -21,10 +21,11 @@ class Login extends Component {
     this.props.loginUser(this.state.email, this.state.password).then((response) => {
       const { user } = this.props;
       if (user.authorization_token) {
+        this.setState({ email: '', password: '' });
         localStorage.setItem('authorization_token', JSON.stringify(user.authorization_token));
         this.props.history.push('/timeline');
       } else {
-        alert('Email o contraseña incorrectos');
+        alert('Correo o contraseña incorrectos');
       }
     });
   }
@@ -35,10 +36,10 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="LoginContainer">
+      <div className="SessionContainer">
         <LoginForm submitLogin={this.submitLogin} onChangeInput={this.onChangeInput} {...this.state} />
-        <Link to="/register" className="LoginLink">
-          Aún no tienes una cuenta? Regístrate
+        <Link to="/register" className="SessionLink">
+          ¿Aún no tienes una cuenta? Regístrate
         </Link>
       </div>
     );
