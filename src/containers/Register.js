@@ -1,22 +1,37 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createUser } from '../actions';
 import RegisterForm from '../components/Register';
 import '../components/Session.css';
 
 class Register extends Component {
+  static propTypes = {
+    createUser: PropTypes.func.isRequired,
+    user: PropTypes.shape({
+      authorization_token: PropTypes.string,
+    }).isRequired,
+  };
+
   state = { email: '', password: '', name: '', confirmPassword: '' }
 
   submitRegister = (e) => {
     e.preventDefault();
-    // this.props.loginUser(this.state.email, this.state.password).then((response) => {
-    //   const { user } = this.props;
-    //   if (user.authorization_token) {
-    //     localStorage.setItem('authorization_token', JSON.stringify(user.authorization_token));
-    //     this.props.history.push('/timeline');
-    //   } else {
-    //     alert('Email o contraseña incorrectos');
-    //   }
-    // });
+    const { email, name, password, confirmPassword } = this.state;
+    if (password === confirmPassword) {
+      this.props.createUser(email, name, password).then((response) => {
+        if (this.props.user.authorization_token) {
+          this.setState({ email: '', password: '', name: '', confirmPassword: '' });
+          localStorage.setItem('authorization_token', JSON.stringify(this.props.user.authorization_token));
+          this.props.history.push('/timeline');
+        } else {
+          alert('Registro fallido.');
+        }
+      })
+    } else {
+      alert('Las contraseñas no coinciden.');
+    }
   }
 
   onChangeInput = (e, field) => {
@@ -35,4 +50,10 @@ class Register extends Component {
   }
 }
 
-export default Register;
+function mapStateToProps(state) {
+  return {
+    user: state.user,
+  };
+}
+
+export default connect(mapStateToProps, { createUser })(Register);

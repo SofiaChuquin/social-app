@@ -9,7 +9,7 @@ const Register = props => (
     <label>Correo electrónico</label>
     <input className="SessionInput" value={props.email} onChange={e => props.onChangeInput(e, 'email')} required type="email" />
     <label>Contraseña</label>
-    <input className="SessionInput" value={props.password} onChange={e => props.onChangeInput(e, 'password')} required type="password" />
+    <input className="SessionInput" value={props.password} onChange={e => props.onChangeInput(e, 'password')} required type="password"  pattern=".{6,}" title="6 dígitos como mínimo" />
     <label>Confirmar contraseña</label>
     <input className="SessionInput" onChange={e => props.onChangeInput(e, 'confirmPassword')} required type="password" />
     <button type="submit" className="SessionButton">Registrarme</button>
