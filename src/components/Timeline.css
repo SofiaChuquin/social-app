@@ -1,0 +1,100 @@
+.TimelineContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.TimelineHeader {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.TimelinePublish {
+  display: flex;
+  flex-direction: column;
+}
+
+.TimelineButton {
+  border: none;
+  height: 40px;
+  font-size: 16px;
+  background-color: #2272E2;
+  color: white;
+  font-weight: bold;
+  width: 30%;
+  display: flex;
+  align-self: flex-end;
+  justify-content: center;
+  margin: 20px 0;
+  cursor: pointer;
+}
+
+.TimelineDisabled {
+  border: none;
+  height: 40px;
+  font-size: 16px;
+  background-color: lightgray;
+  color: white;
+  font-weight: bold;
+  width: 30%;
+  display: flex;
+  align-self: flex-end;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.TimelinePost {
+  border-top: 1px solid #1169AD;
+}
+
+.TimelineDetails {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.TimelineIconActive {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+}
+
+.TimelineIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.TimelineLikes {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.TimelineLogout {
+  color: #1169AD;
+  text-decoration: none;
+}
+
+.TimelineActions {
+  border: none;
+  background-color: transparent;
+  font-size: 14px;
+  color: #1169AD;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.TimelineEdit {
+  width: 100%;
+  margin-top: 20px;
+}
