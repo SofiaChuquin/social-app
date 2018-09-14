@@ -1,0 +1,58 @@
+.TimelineContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.TimelineHeader {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.TimelinePublish {
+  display: flex;
+  flex-direction: column;
+}
+
+.TimelineButton {
+  border: none;
+  height: 40px;
+  font-size: 16px;
+  background-color: #2272E2;
+  color: white;
+  font-weight: bold;
+  width: 30%;
+  display: flex;
+  align-self: flex-end;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.TimelinePost {
+  border-top: 1px solid #1169AD;
+}
+
+.TimelineDetails {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.TimelineIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+}
+
+.TimelineLikes {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
