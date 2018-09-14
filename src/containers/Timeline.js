@@ -24,7 +24,7 @@ class Timeline extends Component {
       <div className="TimelineContainer">
         <div className="TimelineHeader">
           <h2>Bienvenido, Sofia</h2>
-          <Link to="/log_in" onClick={this.logOut}>
+          <Link to="/log_in" onClick={this.logOut} className="TimelineLogout">
             Cerrar sesión
           </Link>
         </div>

@@ -56,3 +56,8 @@
   flex-direction: row;
   align-items: center;
 }
+
+.TimelineLogout {
+  color: #1169AD;
+  text-decoration: none;
+}
