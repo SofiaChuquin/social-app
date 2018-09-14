@@ -4,7 +4,7 @@ export const LOGIN = 'LOGIN';
 
 export function loginUser(email, password) {
   const instance = axios.create({
-    baseURL: 'https://mighty-atoll-46015.herokuapp.com/api/'
+    baseURL: 'http://localhost:9000/api/'
   });
 
   const data = {
