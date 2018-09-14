@@ -35,6 +35,20 @@
   cursor: pointer;
 }
 
+.TimelineDisabled {
+  border: none;
+  height: 40px;
+  font-size: 16px;
+  background-color: lightgray;
+  color: white;
+  font-weight: bold;
+  width: 30%;
+  display: flex;
+  align-self: flex-end;
+  justify-content: center;
+  margin: 20px 0;
+}
+
 .TimelinePost {
   border-top: 1px solid #1169AD;
 }

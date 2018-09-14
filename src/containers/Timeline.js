@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createPost, getUser, getPosts } from '../actions';
+import { createPost, getUser, getPosts, deletePost } from '../actions';
 import Posts from '../components/Post';
 import '../components/Timeline.css';
 
@@ -11,6 +11,7 @@ class Timeline extends Component {
     createPost: PropTypes.func.isRequired,
     getUser: PropTypes.func.isRequired,
     getPosts: PropTypes.func.isRequired,
+    deletePost: PropTypes.func.isRequired,
     user: PropTypes.shape({
       authorization_token: PropTypes.string,
       users: PropTypes.array,
@@ -39,12 +40,24 @@ class Timeline extends Component {
       description: this.state.description,
       likes: 0
     };
-    this.props.createPost(values, token);
-    this.setState({ description: '' });
+    this.props.createPost(values, token).then (() => {
+      this.props.getPosts(token);
+      this.setState({ description: '' });
+    });
   }
 
   logOut = () => {
     localStorage.removeItem('authorization_token');
+  }
+
+  removePost = (id) => {
+    console.log(id)
+    const token = JSON.parse(localStorage.getItem('authorization_token'));
+    if (window.confirm('¿Estás seguro de eliminar este post?')) {
+      this.props.deletePost(token, id).then(() => {
+        this.props.getPosts(token);
+      })
+    }
   }
 
   render() {
@@ -63,6 +76,7 @@ class Timeline extends Component {
         <Posts
           submitPost={this.submitPost}
           onChangeInput={this.onChangeInput}
+          removePost={this.removePost}
           description={this.state.description}
           users={this.props.user.users}
           {...this.props}
@@ -79,4 +93,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { createPost, getUser, getPosts })(Timeline);
+export default connect(mapStateToProps, { createPost, getUser, getPosts, deletePost })(Timeline);

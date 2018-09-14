@@ -5,7 +5,7 @@ const Post = props => (
   <div>
     <div className="TimelinePublish">
       <textarea rows={6} placeholder="¿Qué estas pensando hoy?" onChange={e => props.onChangeInput(e)} value={props.description} />
-      <button className="TimelineButton" onClick={props.submitPost}>Publicar</button>
+      <button className={props.description.length > 0 ? "TimelineButton" : "TimelineDisabled"} onClick={props.submitPost} disabled={props.description.length > 0 ? false : true}>Publicar</button>
     </div>
     {props.posts.all_posts.map(post => (
       <div className="TimelinePost" key={post.id}>
@@ -15,7 +15,7 @@ const Post = props => (
           {props.user.id === post.user_id &&
             <div>
               <button className="TimelineActions">Editar</button>
-              <button className="TimelineActions">Eliminar</button>
+              <button className="TimelineActions" onClick={() => props.removePost(post.id)}>Eliminar</button>
             </div>
           }
           <div className="TimelineLikes">
@@ -31,6 +31,7 @@ const Post = props => (
 Post.propTypes = {
   submitPost: PropTypes.func.isRequired,
   onChangeInput: PropTypes.func.isRequired,
+  removePost: PropTypes.func.isRequired,
   description: PropTypes.string.isRequired,
   posts: PropTypes.shape({
     all_posts: PropTypes.array,
