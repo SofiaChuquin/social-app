@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createPost, getUser, getPosts, deletePost } from '../actions';
+import { createPost, getUser, getPosts, deletePost, editPost } from '../actions';
 import Posts from '../components/Post';
 import '../components/Timeline.css';
 
@@ -12,6 +12,7 @@ class Timeline extends Component {
     getUser: PropTypes.func.isRequired,
     getPosts: PropTypes.func.isRequired,
     deletePost: PropTypes.func.isRequired,
+    editPost: PropTypes.func.isRequired,
     user: PropTypes.shape({
       authorization_token: PropTypes.string,
       users: PropTypes.array,
@@ -21,7 +22,7 @@ class Timeline extends Component {
     }).isRequired,
   };
 
-  state = { description: '', posts: {} }
+  state = { description: '', newDescription: '', posts: {}, postNumber: 0 }
 
   componentDidMount = () => {
     const token = JSON.parse(localStorage.getItem('authorization_token'));
@@ -51,12 +52,32 @@ class Timeline extends Component {
   }
 
   removePost = (id) => {
-    console.log(id)
     const token = JSON.parse(localStorage.getItem('authorization_token'));
     if (window.confirm('¿Estás seguro de eliminar este post?')) {
       this.props.deletePost(token, id).then(() => {
         this.props.getPosts(token);
       })
+    }
+  }
+
+  changeDescription = (id) => {
+    this.setState({ postNumber: id });
+  }
+
+  onEdit = (e) => {
+    this.setState({ newDescription: e.target.value });
+  }
+
+  saveChange = (id) => {
+    this.setState({ postNumber: 0 });
+    const token = JSON.parse(localStorage.getItem('authorization_token'));
+    const values = { description: this.state.newDescription };
+    if (this.state.newDescription.length > 0) {
+      this.props.editPost(values, token, id).then(() => {
+        this.props.getPosts(token);
+      })
+    } else {
+      alert('El campo no puede estar vacío.')
     }
   }
 
@@ -76,9 +97,13 @@ class Timeline extends Component {
         <Posts
           submitPost={this.submitPost}
           onChangeInput={this.onChangeInput}
+          onEdit={this.onEdit}
           removePost={this.removePost}
+          changeDescription={this.changeDescription}
+          saveChange={this.saveChange}
           description={this.state.description}
           users={this.props.user.users}
+          postNumber={this.state.postNumber}
           {...this.props}
         />
       </div>
@@ -93,4 +118,6 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { createPost, getUser, getPosts, deletePost })(Timeline);
+export default connect(mapStateToProps, {
+  createPost, getUser, getPosts, deletePost, editPost
+})(Timeline);
