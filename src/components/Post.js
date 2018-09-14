@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 const Post = props => (
@@ -25,8 +25,11 @@ const Post = props => (
             )
           }
           <div className="TimelineLikes">
-            <img src="like-active.svg" className="TimelineIcon" alt="like" />
-            <p>{post.likes}</p>
+            {console.log(props.postLiked.includes(post.id), props.postLiked, post.id)}
+            {props.postLiked.includes(post.id) ?
+              <Fragment><img src="like-active.svg" className="TimelineIcon" alt="liked" /><p>{post.likes}</p></Fragment> :
+              <Fragment><a onClick={() => props.addLike(post.id, post.likes)}><img src="like.svg" className="TimelineIcon" alt="like" /></a><p>{post.likes}</p></Fragment>
+            }
           </div>
         </div>
       </div>
@@ -40,7 +43,9 @@ Post.propTypes = {
   removePost: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
   changeDescription: PropTypes.func.isRequired,
+  addLike: PropTypes.func.isRequired,
   saveChange: PropTypes.func.isRequired,
+  postLiked: PropTypes.array.isRequired,
   postNumber: PropTypes.number.isRequired,
   description: PropTypes.string.isRequired,
   posts: PropTypes.shape({

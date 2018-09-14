@@ -22,7 +22,7 @@ class Timeline extends Component {
     }).isRequired,
   };
 
-  state = { description: '', newDescription: '', posts: {}, postNumber: 0 }
+  state = { description: '', newDescription: '', posts: {}, postNumber: 0, postLiked: [] }
 
   componentDidMount = () => {
     const token = JSON.parse(localStorage.getItem('authorization_token'));
@@ -81,6 +81,15 @@ class Timeline extends Component {
     }
   }
 
+  addLike = (id, likes) => {
+    this.setState({ postLiked: [...this.state.postLiked, id] });
+    const token = JSON.parse(localStorage.getItem('authorization_token'));
+    const values = { likes: likes + 1 };
+    this.props.editPost(values, token, id).then(() => {
+      this.props.getPosts(token);
+    })
+  }
+
   render() {
     if (!this.props.posts.all_posts || !this.props.user.users) { return null; }
     if (!(localStorage.getItem('authorization_token'))) {
@@ -101,9 +110,9 @@ class Timeline extends Component {
           removePost={this.removePost}
           changeDescription={this.changeDescription}
           saveChange={this.saveChange}
-          description={this.state.description}
+          addLike={this.addLike}
           users={this.props.user.users}
-          postNumber={this.state.postNumber}
+          {...this.state}
           {...this.props}
         />
       </div>
