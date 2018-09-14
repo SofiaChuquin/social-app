@@ -11,7 +11,13 @@ const Post = props => (
       <div className="TimelinePost" key={post.id}>
         <p>{post.description}</p>
         <div className="TimelineDetails">
-          <h4>Autor: Han Solo</h4>
+          <h4>{`Autor: ${props.users.find(user => user.id === post.user_id).name}`}</h4>
+          {props.user.id === post.user_id &&
+            <div>
+              <button className="TimelineActions">Editar</button>
+              <button className="TimelineActions">Eliminar</button>
+            </div>
+          }
           <div className="TimelineLikes">
             <img src="like-active.svg" className="TimelineIcon" alt="like" />
             <p>{post.likes}</p>
@@ -28,6 +34,10 @@ Post.propTypes = {
   description: PropTypes.string.isRequired,
   posts: PropTypes.shape({
     all_posts: PropTypes.array,
+  }).isRequired,
+  users: PropTypes.array.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.number,
   }).isRequired,
 };
 

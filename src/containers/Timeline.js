@@ -13,6 +13,7 @@ class Timeline extends Component {
     getPosts: PropTypes.func.isRequired,
     user: PropTypes.shape({
       authorization_token: PropTypes.string,
+      users: PropTypes.array,
     }).isRequired,
     posts: PropTypes.shape({
       all_posts: PropTypes.array,
@@ -47,7 +48,7 @@ class Timeline extends Component {
   }
 
   render() {
-    if (!this.props.posts.all_posts) { return null; }
+    if (!this.props.posts.all_posts || !this.props.user.users) { return null; }
     if (!(localStorage.getItem('authorization_token'))) {
       return <Redirect to='/log_in' />
     }
@@ -59,7 +60,13 @@ class Timeline extends Component {
             Cerrar sesión
           </Link>
         </div>
-        <Posts submitPost={this.submitPost} onChangeInput={this.onChangeInput} description={this.state.description} posts={this.props.posts} />
+        <Posts
+          submitPost={this.submitPost}
+          onChangeInput={this.onChangeInput}
+          description={this.state.description}
+          users={this.props.user.users}
+          {...this.props}
+        />
       </div>
     );
   }

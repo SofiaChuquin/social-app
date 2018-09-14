@@ -35,9 +35,11 @@
   background-color: #2272E2;
   color: white;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .SessionLink {
   color: #1169AD;
   text-decoration: none;
+  cursor: pointer;
 }
