@@ -60,8 +60,8 @@ class Timeline extends Component {
     }
   }
 
-  changeDescription = (id) => {
-    this.setState({ postNumber: id });
+  changeDescription = (id, description) => {
+    this.setState({ postNumber: id, newDescription: description });
   }
 
   onEdit = (e) => {
@@ -91,10 +91,10 @@ class Timeline extends Component {
   }
 
   render() {
-    if (!this.props.posts.all_posts || !this.props.user.users) { return null; }
     if (!(localStorage.getItem('authorization_token'))) {
       return <Redirect to='/log_in' />
     }
+    if (!this.props.posts.all_posts || !this.props.user.users) { return null; }
     return (
       <div className="TimelineContainer">
         <div className="TimelineHeader">

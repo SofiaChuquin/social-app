@@ -19,23 +19,35 @@ class Register extends Component {
   submitRegister = (e) => {
     e.preventDefault();
     const { email, name, password, confirmPassword } = this.state;
-    if (password === confirmPassword) {
-      this.props.createUser(email, name, password).then((response) => {
-        if (this.props.user.authorization_token) {
-          this.setState({ email: '', password: '', name: '', confirmPassword: '' });
-          localStorage.setItem('authorization_token', JSON.stringify(this.props.user.authorization_token));
-          this.props.history.push('/timeline');
-        } else {
-          alert('Registro fallido.');
-        }
-      })
+    const allFields = email && name && password && confirmPassword;
+    const samePasswords = password === confirmPassword;
+    const validateEmail = /^\w+(\.-?\w+)*@\w+(\.-?\w+)*(\.\w{2,3})+$/.test(email);
+    const minPassword = password.length > 5;
+    if (allFields && samePasswords) {
+      if (validateEmail && minPassword) {
+        this.registerUser(email, name, password);
+      } else {
+        validateEmail ? alert('La contraseña debe ser de 6 dígitos como mínimo.') : alert('Formato de correo electrónico inválido.');
+      }
     } else {
-      alert('Las contraseñas no coinciden.');
+      allFields ? alert('Las contraseñas no coinciden.') : alert('Completa todos los campos.');
     }
   }
 
   onChangeInput = (e, field) => {
     this.setState({ [field]: e.target.value });
+  }
+
+  registerUser = (email, name, password) => {
+    this.props.createUser(email, name, password).then((response) => {
+      if (this.props.user.authorization_token) {
+        this.setState({ email: '', password: '', name: '', confirmPassword: '' });
+        localStorage.setItem('authorization_token', JSON.stringify(this.props.user.authorization_token));
+        this.props.history.push('/timeline');
+      } else {
+        alert('Registro fallido.');
+      }
+    })
   }
 
   render() {

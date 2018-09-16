@@ -19,7 +19,7 @@ const Post = props => (
             (props.postNumber === post.id ?
               <button className="TimelineActions" onClick={() => props.saveChange(post.id)}>Guardar</button> :
               <div>
-                <button className="TimelineActions" onClick={() => props.changeDescription(post.id)}>Editar</button>
+                <button className="TimelineActions" onClick={() => props.changeDescription(post.id, post.description)}>Editar</button>
                 <button className="TimelineActions" onClick={() => props.removePost(post.id)}>Eliminar</button>
               </div>
             )
