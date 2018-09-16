@@ -19,7 +19,7 @@ class Login extends Component {
 
   submitLogin = (e) => {
     e.preventDefault();
-    const validateEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email);
+    const validateEmail = /^\w+(\.-?\w+)*@\w+(\.-?\w+)*(\.\w{2,3})+$/.test(this.state.email);
     if (this.state.email && this.state.password && validateEmail) {
       this.props.loginUser(this.state.email, this.state.password).then((response) => {
         const { user } = this.props;

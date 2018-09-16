@@ -5,13 +5,13 @@ const Register = props => (
   <form className="SessionForm" onSubmit={e => props.submitRegister(e)}>
     <h1 className="SessionTitle">Registro</h1>
     <label>Nombre</label>
-    <input className="SessionInput" value={props.name} onChange={e => props.onChangeInput(e, 'name')} required />
+    <input className="SessionInput" value={props.name} onChange={e => props.onChangeInput(e, 'name')} />
     <label>Correo electrónico</label>
-    <input className="SessionInput" value={props.email} onChange={e => props.onChangeInput(e, 'email')} required type="email" />
+    <input className="SessionInput" value={props.email} onChange={e => props.onChangeInput(e, 'email')} />
     <label>Contraseña</label>
-    <input className="SessionInput" value={props.password} onChange={e => props.onChangeInput(e, 'password')} required type="password"  pattern=".{6,}" title="6 dígitos como mínimo" />
+    <input className="SessionInput" value={props.password} onChange={e => props.onChangeInput(e, 'password')} type="password" />
     <label>Confirmar contraseña</label>
-    <input className="SessionInput" onChange={e => props.onChangeInput(e, 'confirmPassword')} required type="password" />
+    <input className="SessionInput" onChange={e => props.onChangeInput(e, 'confirmPassword')} type="password" />
     <button type="submit" className="SessionButton">Registrarme</button>
   </form>
 );

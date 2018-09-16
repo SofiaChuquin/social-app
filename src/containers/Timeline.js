@@ -60,8 +60,8 @@ class Timeline extends Component {
     }
   }
 
-  changeDescription = (id) => {
-    this.setState({ postNumber: id });
+  changeDescription = (id, description) => {
+    this.setState({ postNumber: id, newDescription: description });
   }
 
   onEdit = (e) => {
