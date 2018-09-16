@@ -19,16 +19,21 @@ class Login extends Component {
 
   submitLogin = (e) => {
     e.preventDefault();
-    this.props.loginUser(this.state.email, this.state.password).then((response) => {
-      const { user } = this.props;
-      if (user.authorization_token) {
-        this.setState({ email: '', password: '' });
-        localStorage.setItem('authorization_token', JSON.stringify(user.authorization_token));
-        this.props.history.push('/timeline');
-      } else {
-        alert('Correo o contraseña incorrectos');
-      }
-    });
+    const validateEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email);
+    if (this.state.email && this.state.password && validateEmail) {
+      this.props.loginUser(this.state.email, this.state.password).then((response) => {
+        const { user } = this.props;
+        if (user.authorization_token) {
+          this.setState({ email: '', password: '' });
+          localStorage.setItem('authorization_token', JSON.stringify(user.authorization_token));
+          this.props.history.push('/timeline');
+        } else {
+          alert('Correo o contraseña incorrectos.');
+        }
+      });
+    } else {
+      validateEmail ? alert('Completa todos los campos.') : alert('Formato de correo electrónico inválido.');
+    }
   }
 
   onChangeInput = (e, field) => {
