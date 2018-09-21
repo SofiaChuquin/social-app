@@ -5,8 +5,10 @@ export const GET_POSTS = 'GET_POSTS';
 export const EDIT_POST = 'EDIT_POST';
 export const DELETE_POST = 'DELETE_POST';
 
+const baseURL = process.env.REACT_APP_BASE_URL;
+
 const instance = axios.create({
-  baseURL: 'http://localhost:9000/api/'
+  baseURL
 });
 
 export function createPost(values, token) {
